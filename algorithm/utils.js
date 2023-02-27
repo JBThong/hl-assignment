@@ -60,9 +60,41 @@ function findMaxNum(arrNums) {
     return sortedArray[sortedArray.length - 1];
 }
 
+/**
+ * Returns even elements in array.
+ * 
+ * @param {Array} arrNums An array input.
+ * @returns {Array} Even elements.
+ * 
+ */
+function findEvenEls(arrNums) {
+    let evenEls = arrNums.filter(num => {
+        return num % 2 === 0;
+    });
+
+    return evenEls;
+}
+
+/**
+ * Returns odd elements in array.
+ * 
+ * @param {Array} arrNums An array input.
+ * @returns {Array} Odd elements.
+ * 
+ */
+function findOddEls(arrNums) {
+    let oddEls = arrNums.filter(num => {
+        return num % 2 === 1;
+    });
+
+    return oddEls;
+}
+
 module.exports = {
     miniMaxSum,
     totalOfArray,
     findMinNum,
     findMaxNum,
+    findEvenEls,
+    findOddEls,
 }

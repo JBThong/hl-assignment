@@ -1,5 +1,10 @@
 var readline = require('readline');
-const { miniMaxSum, totalOfArray, findMinNum, findMaxNum } = require('./utils')
+const { miniMaxSum,
+	totalOfArray,
+	findMinNum,
+	findMaxNum,
+	findEvenEls,
+	findOddEls } = require('./utils')
 
 var rl = readline.createInterface(process.stdin, process.stdout);
 
@@ -26,4 +31,9 @@ function main(numbers) {
 	let maxNum = findMaxNum(arrNums);
 	console.log(`Min number: ${minNum}`);
 	console.log(`Max number: ${maxNum}`);
+
+	let evenEls = findEvenEls(arrNums);
+	let oddEls = findOddEls(arrNums);
+	console.log(`Even numbers: ${evenEls}`);
+	console.log(`Odd numbers: ${oddEls}`);
 }
