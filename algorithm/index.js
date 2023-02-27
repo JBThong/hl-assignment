@@ -1,8 +1,8 @@
 var readline = require('readline');
-const { miniMaxSum } = require('./utils')
+const { miniMaxSum, totalOfArray } = require('./utils')
 
-var rl = readline.createInterface(
-		process.stdin, process.stdout);
+var rl = readline.createInterface(process.stdin, process.stdout);
+
 let intros = `Please input five positive integers follow format
 Input format:
 A single line of five space-separated intergrs \n`;
@@ -17,5 +17,8 @@ rl.on('line', (numbers) => {
 function main(numbers) {
 	const arrNums = numbers.replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
 	let [min, max] = miniMaxSum(arrNums);
-	console.log(`minSum and maxSum: ${min} ${max}`)
+	console.log(`minSum and maxSum: ${min} ${max}`);
+
+	let total = totalOfArray(arrNums);
+	console.log(`Total of array: ${total}`);
 }

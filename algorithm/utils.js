@@ -18,6 +18,23 @@ function miniMaxSum(arrNums) {
 	return [minSum, maxSum];
 }
 
+/**
+ * Returns total of array.
+ * 
+ * @param {Array} arrNums An array input.
+ * @returns {Number} Total of numbers in array.
+ * 
+ */
+function totalOfArray(arrNums) {
+    let sum = 0;
+    arrNums.forEach(num => {
+        sum += num;
+    });
+
+    return sum;
+}
+
 module.exports = {
     miniMaxSum,
+    totalOfArray,
 }
