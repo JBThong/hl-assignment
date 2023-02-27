@@ -34,7 +34,35 @@ function totalOfArray(arrNums) {
     return sum;
 }
 
+/**
+ * Returns min number of array.
+ * 
+ * @param {Array} arrNums An array input.
+ * @returns {Number} Min number array.
+ * 
+ */
+function findMinNum(arrNums) {
+    sortedArray = arrNums.sort((a,b)=>{ return a-b });
+
+    return sortedArray[0];
+}
+
+/**
+ * Returns max number of array.
+ * 
+ * @param {Array} arrNums An array input.
+ * @returns {Number} Max number array.
+ * 
+ */
+function findMaxNum(arrNums) {
+    sortedArray = arrNums.sort((a,b)=>{ return a-b });
+
+    return sortedArray[sortedArray.length - 1];
+}
+
 module.exports = {
     miniMaxSum,
     totalOfArray,
+    findMinNum,
+    findMaxNum,
 }

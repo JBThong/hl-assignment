@@ -1,5 +1,5 @@
 var readline = require('readline');
-const { miniMaxSum, totalOfArray } = require('./utils')
+const { miniMaxSum, totalOfArray, findMinNum, findMaxNum } = require('./utils')
 
 var rl = readline.createInterface(process.stdin, process.stdout);
 
@@ -21,4 +21,9 @@ function main(numbers) {
 
 	let total = totalOfArray(arrNums);
 	console.log(`Total of array: ${total}`);
+
+	let minNum = findMinNum(arrNums);
+	let maxNum = findMaxNum(arrNums);
+	console.log(`Min number: ${minNum}`);
+	console.log(`Max number: ${maxNum}`);
 }
