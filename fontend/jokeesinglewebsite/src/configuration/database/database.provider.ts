@@ -3,6 +3,7 @@ import { Sequelize } from 'sequelize-typescript';
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
 import { databaseConfig } from './database.config';
 import { Joke } from '../../module/joke/joke.entity';
+import { JokeVote } from '../../module/jokevote/jokevote.entity';
 
 export const databaseProviders = [
     {
@@ -24,6 +25,7 @@ export const databaseProviders = [
             }
             const sequelize = new Sequelize(config);
             sequelize.addModels([Joke]);
+            sequelize.addModels([JokeVote]);
             await sequelize.sync();
             return sequelize;
         },
