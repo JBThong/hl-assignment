@@ -45,8 +45,8 @@
          <div class="joke-content d-lg-block border-bottom p-5">
          </div>
          <div class="voting d-flex justify-content-center p-5">
-            <button type="button" class="btn btn-primary m-2">This is Funny!</button>
-            <button type="button" class="btn btn-success m-2">This is not funny.</button>
+            <button type="button" onclick="voting(1)" class="btn btn-primary m-2">This is Funny!</button>
+            <button type="button" onclick="voting(0)" class="btn btn-success m-2">This is not funny.</button>
          </div>
       </div>
       <footer class="text-center text-lg-start bg-light text-muted">
@@ -63,20 +63,70 @@
    </body>
    <script>
       let jokeList = [];
+      let baseURL = `http://localhost:3000/api/v1/`;
       async function getJokeList() {
-         jokeList = await fetch("http://localhost:3000/api/v1/joke/jokelist")
+         jokeList = await fetch(`${baseURL}joke/jokelist`)
             .then((response) => response.json())
             .then((data) => {
                return data.data
             });
       }
       
-      async function renderJokeList() {
+      async function renderInitList() {
          await getJokeList();
          let jokeContent = document.querySelector('.joke-content');
-         jokeContent.innerHTML = `<span> ${jokeList[0].content} </span>`;
+
+         let jokeIndexCookie = cookieValue = document.cookie.split("; ")
+                           .find((row) => row.startsWith("jokeIndex="))?.split("=")[1];
+
+         if (!jokeIndexCookie) {
+            jokeContent.innerHTML = `<span data-joke-index=${0} data-joke-id=${jokeList[0].id}> ${jokeList[0].content} </span>`;
+            return
+         }
+         if (jokeIndexCookie >= jokeList.length - 1) {
+            jokeContent.innerHTML = `<span > That's all the jokes for today! Come back another day! </span>`;
+            return;
+         }
+         
+         jokeIndexCookie = parseInt(jokeIndexCookie);
+         jokeContent.innerHTML = `<span data-joke-index=${jokeIndexCookie + 1} data-joke-id=${jokeList[jokeIndexCookie + 1].id}> ${jokeList[jokeIndexCookie + 1].content} </span>`;
       }
       
-      renderJokeList();
+      async function voting(value) {
+         let jokeContent = document.getElementsByClassName('joke-content')[0];
+         let jokeIndex = jokeContent.getElementsByTagName('span')[0].getAttribute('data-joke-index');
+         let jokeID = jokeContent.getElementsByTagName('span')[0].getAttribute('data-joke-id');
+         if (!jokeIndex) {
+            return;
+         }
+
+         document.cookie = `jokeIndex=${jokeIndex}`;
+         renderJoke(parseInt(jokeIndex) + 1);
+
+         let rawResponse = await fetch(`${baseURL}jokevote`, {
+            method: 'POST',
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+               vote: parseInt(value),
+               jokeId: parseInt(jokeID),
+            })
+         });
+      }
+
+      function renderJoke(index) {
+         if (index >= jokeList.length) {
+            let jokeContent = document.querySelector('.joke-content');
+            jokeContent.innerHTML = `<span > That's all the jokes for today! Come back another day! </span>`;
+            return;
+         }
+
+         let jokeContent = document.querySelector('.joke-content');
+         jokeContent.innerHTML = `<span data-joke-index=${index} data-joke-id=${jokeList[index].id}> ${jokeList[index].content} </span>`;
+      }
+      
+      renderInitList();
    </script>
 </html>

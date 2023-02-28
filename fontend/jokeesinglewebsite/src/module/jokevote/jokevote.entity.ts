@@ -10,14 +10,7 @@ export class JokeVote extends Model {
     })
     vote: number;
 
-    @Column({
-        type: DataType.INTEGER,
-        allowNull: false,
-        defaultValue: 0
-    })
-    count: number;
-
-    @ForeignKey(() => Joke)
+    // @ForeignKey(() => Joke)
     @Column({
         type: DataType.INTEGER,
         allowNull: false,
@@ -25,7 +18,7 @@ export class JokeVote extends Model {
     })
     jokeId: number;
 
-    @BelongsTo(() => Joke)
-    joke: Joke  
+    // @BelongsTo(() => Joke)
+    // joke: Joke  
 
 }

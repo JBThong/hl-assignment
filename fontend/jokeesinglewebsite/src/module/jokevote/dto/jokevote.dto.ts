@@ -1,5 +1,4 @@
 export class JokeVoteDto {
-    jokeID: string;
+    jokeId: string;
     vote: number;
-    count: number;
 }

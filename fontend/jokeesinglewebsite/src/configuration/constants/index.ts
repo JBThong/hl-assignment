@@ -4,6 +4,7 @@ export const TEST = 'test';
 export const PRODUCTION = 'production';
 
 export const JOKE_REPOSITORY = 'JOKE_REPOSITORY';
+export const JOKE_VOTE_REPOSITORY = 'JOKE_VOTE_REPOSITORY';
 
 export const SAMPLE_JOKES = [
     `A child asked his father, "How were people born?" So his father said, "Adam and Eve made babies, then their babies became adults and made babies, and so on."\n
