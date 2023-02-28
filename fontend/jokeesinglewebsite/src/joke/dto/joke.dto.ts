@@ -1,3 +1,3 @@
 export class JokeDto {
-    readonly content: string;
+    content: string;
 }
