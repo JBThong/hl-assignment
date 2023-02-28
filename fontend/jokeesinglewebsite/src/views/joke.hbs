@@ -1,66 +1,82 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8">
-  <title>Jokee Single Website</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-
-<body>
-  <header>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!-- Navbar brand -->
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
-        <img
-          src="https://www.hl.solutions/images/logo.png"
-          height="15"
-          alt="HL Logo"
-          loading="lazy"
-        />
-      </a>
-    </div>
-        <!-- Right elements -->
-    <div class="d-flex align-items-center">
-        <img
-            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-            class="rounded-circle"
-            height="25"
-            alt="avatar default"
-            loading="lazy"
-          />
-    </div>
-    </div>
-  </nav>
-  <!-- Navbar -->
-
-  <!-- Jumbotron -->
-  <div class="p-5 text-center bg-success">
-    <h1 class="mb-3">A joke a day keep the doctor away</h1>
-    <h4 class="mb-3">if you joke wrong away, your teeth have to pay.(Serious)</h4>
-  </div>
-  <!-- Jumbotron -->
-</header>
-    <div class = "container-fluid page site-content">
-        <div class="joke-content">
-            {{jokecontent}}
-        </div>
-        <div class="voting">
-            <button type="button" class="btn btn-primary">This is Funny!</button>
-            <button type="button" class="btn btn-success">This is not funny.</button>
-        </div>
-    </div>
-    <footer class="text-center text-lg-start bg-light text-muted">
-        <div class="container">
-            <span> This Website is created by program...</span>
-        </div>
-    </footer>
-
-
-  </div>
-</body>
-
+   <head>
+      <meta charset="utf-8">
+      <title>Jokee Single Website</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   </head>
+   <body>
+      <header>
+         <!-- Navbar -->
+         <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container-fluid">
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <!-- Navbar brand -->
+                  <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                  <img
+                     src="https://www.hl.solutions/images/logo.png"
+                     height="15"
+                     alt="HL Logo"
+                     loading="lazy"
+                     />
+                  </a>
+               </div>
+               <!-- Right elements -->
+               <div class="d-flex align-items-center">
+                  <img
+                     src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                     class="rounded-circle"
+                     height="25"
+                     alt="avatar default"
+                     loading="lazy"
+                     />
+               </div>
+            </div>
+         </nav>
+         <!-- Navbar -->
+         <!-- Jumbotron -->
+         <div class="p-5 text-center bg-success text-white">
+            <h1 class="mb-3">A joke a day keep the doctor away</h1>
+            <h4 class="mb-3">if you joke wrong away, your teeth have to pay.(Serious)</h4>
+         </div>
+         <!-- Jumbotron -->
+      </header>
+      <div class = "container-fluid page site-content">
+         <div class="joke-content d-lg-block border-bottom p-5">
+         </div>
+         <div class="voting d-flex justify-content-center p-5">
+            <button type="button" class="btn btn-primary m-2">This is Funny!</button>
+            <button type="button" class="btn btn-success m-2">This is not funny.</button>
+         </div>
+      </div>
+      <footer class="text-center text-lg-start bg-light text-muted">
+         <div class="container-fluid p-5">
+            <p class="text-justify"> This Website is created as HL solutions program. The marterials contained on this
+               website are provided for general information only and do not consuititude any form of divice.
+               HLS assumes no responsibility for the accuracy of any particular statement and accepts no liability
+               for any loss or damage which may rise from reliance on information contained on this website.
+            </p>
+            <p class="text-justify"><b>Copyright 2021 HLS</b></p>
+         </div>
+      </footer>
+      </div>
+   </body>
+   <script>
+      let jokeList = [];
+      async function getJokeList() {
+         jokeList = await fetch("http://localhost:3000/api/v1/joke/jokelist")
+            .then((response) => response.json())
+            .then((data) => {
+               return data.data
+            });
+      }
+      
+      async function renderJokeList() {
+         await getJokeList();
+         let jokeContent = document.querySelector('.joke-content');
+         jokeContent.innerHTML = `<span> ${jokeList[0].content} </span>`;
+      }
+      
+      renderJokeList();
+   </script>
 </html>

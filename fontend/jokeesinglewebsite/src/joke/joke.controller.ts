@@ -9,6 +9,23 @@ export class JokeController {
     @Render('joke')
     async renderJokeContent() {
         try {
+            return {
+                    statusCode: 200,
+                    msg: null,
+                    data: null 
+                };
+        }
+        catch (err) {
+            return {
+                    statusCode: 400,
+                    msg: err
+                }
+        }
+    }
+
+    @Get('jokelist')
+    async getJokeList() {
+        try {
             let jokeList = await this.jokeService.findAll();
             return {
                     statusCode: 200,
