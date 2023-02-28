@@ -2,7 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
 import { databaseConfig } from './database.config';
-import { Joke } from '../../joke/joke.entity';
+import { Joke } from '../../module/joke/joke.entity';
 
 export const databaseProviders = [
     {

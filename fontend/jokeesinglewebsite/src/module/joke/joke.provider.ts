@@ -1,5 +1,5 @@
 import { Joke } from './joke.entity';
-import { JOKE_REPOSITORY } from '../configuration/constants/index';
+import { JOKE_REPOSITORY } from '../../configuration/constants/index';
 
 export const jokeProviders = [
     {

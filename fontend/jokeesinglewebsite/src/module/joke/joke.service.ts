@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { JOKE_REPOSITORY, SAMPLE_JOKES } from '../configuration/constants/index';
+import { JOKE_REPOSITORY, SAMPLE_JOKES } from '../../configuration/constants/index';
 import { Joke as JokeEntity } from './joke.entity';
 import { JokeDto } from './dto/joke.dto';
 
