@@ -9,13 +9,13 @@
       <header>
          <!-- Navbar -->
          <nav class="navbar navbar-expand-lg navbar-light bg-white">
-            <div class="container-fluid">
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="container">
+               <div class="d-flex align-items-center" id="navbarSupportedContent">
                   <!-- Navbar brand -->
                   <a class="navbar-brand mt-2 mt-lg-0" href="#">
                   <img
-                     src="https://www.hl.solutions/images/logo.png"
-                     height="15"
+                     src="https://i.imgur.com/NnqoyUr.png"
+                     height="50"
                      alt="HL Logo"
                      loading="lazy"
                      />
@@ -23,10 +23,14 @@
                </div>
                <!-- Right elements -->
                <div class="d-flex align-items-center">
+                     <div class="d-flex flex-column align-items-end">
+                        <span class="d-block" style="color: #bebebe">Handicraff by</span>
+                        <span class="d-block"><b>Jim HLS</b></span>
+                     </div>
                   <img
-                     src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                     class="rounded-circle"
-                     height="25"
+                     src="https://i.imgur.com/poO2Z33.png"
+                     class="rounded-circle m-2"
+                     height="50"
                      alt="avatar default"
                      loading="lazy"
                      />
@@ -35,7 +39,7 @@
          </nav>
          <!-- Navbar -->
          <!-- Jumbotron -->
-         <div class="p-5 text-center bg-success text-white">
+         <div class="p-5 text-center text-white" style="background-color: #29b363; font-family: sans-serif">
             <h1 class="mb-3">A joke a day keep the doctor away</h1>
             <h4 class="mb-3">if you joke wrong away, your teeth have to pay.(Serious)</h4>
          </div>
@@ -50,83 +54,84 @@
          </div>
       </div>
       <footer class="text-center text-lg-start bg-light text-muted">
-         <div class="container-fluid p-5">
-            <p class="text-justify"> This Website is created as HL solutions program. The marterials contained on this
-               website are provided for general information only and do not consuititude any form of divice.
+         <div class="container w-75 p-5 text-center">
+            <p class="mb-0">
+               This Website is created as HL solutions program. The marterials contained on this
+               website are provided for general</p>
+            <p>information only and do not consuititude any form of divice.
                HLS assumes no responsibility for the accuracy of any particular statement and accepts no liability
-               for any loss or damage which may rise from reliance on information contained on this website.
-            </p>
+               for any loss or damage which may rise from reliance on information contained on this website.</p>
             <p class="text-justify"><b>Copyright 2021 HLS</b></p>
          </div>
       </footer>
       </div>
-   </body>
-   <script>
-      let jokeList = [];
-      let baseURL = `http://localhost:3000/api/v1/`;
-      async function getJokeList() {
-         jokeList = await fetch(`${baseURL}joke/jokelist`)
-            .then((response) => response.json())
-            .then((data) => {
-               return data.data
-            });
-      }
-      
-      async function renderInitList() {
-         await getJokeList();
-         let jokeContent = document.querySelector('.joke-content');
-
-         let jokeIndexCookie = cookieValue = document.cookie.split("; ")
-                           .find((row) => row.startsWith("jokeIndex="))?.split("=")[1];
-
-         if (!jokeIndexCookie) {
-            jokeContent.innerHTML = `<span data-joke-index=${0} data-joke-id=${jokeList[0].id}> ${jokeList[0].content} </span>`;
-            return
-         }
-         if (jokeIndexCookie >= jokeList.length - 1) {
-            jokeContent.innerHTML = `<span > That's all the jokes for today! Come back another day! </span>`;
-            return;
+      <script>
+         let jokeList = [];
+         let baseURL = `http://localhost:3000/api/v1/`;
+         async function getJokeList() {
+            jokeList = await fetch(`${baseURL}joke/jokelist`)
+               .then((response) => response.json())
+               .then((data) => {
+                  return data.data
+               });
          }
          
-         jokeIndexCookie = parseInt(jokeIndexCookie);
-         jokeContent.innerHTML = `<span data-joke-index=${jokeIndexCookie + 1} data-joke-id=${jokeList[jokeIndexCookie + 1].id}> ${jokeList[jokeIndexCookie + 1].content} </span>`;
-      }
-      
-      async function voting(value) {
-         let jokeContent = document.getElementsByClassName('joke-content')[0];
-         let jokeIndex = jokeContent.getElementsByTagName('span')[0].getAttribute('data-joke-index');
-         let jokeID = jokeContent.getElementsByTagName('span')[0].getAttribute('data-joke-id');
-         if (!jokeIndex) {
-            return;
-         }
-
-         document.cookie = `jokeIndex=${jokeIndex}`;
-         renderJoke(parseInt(jokeIndex) + 1);
-
-         let rawResponse = await fetch(`${baseURL}jokevote`, {
-            method: 'POST',
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-               vote: parseInt(value),
-               jokeId: parseInt(jokeID),
-            })
-         });
-      }
-
-      function renderJoke(index) {
-         if (index >= jokeList.length) {
+         async function renderInitList() {
+            await getJokeList();
             let jokeContent = document.querySelector('.joke-content');
-            jokeContent.innerHTML = `<span > That's all the jokes for today! Come back another day! </span>`;
-            return;
+
+            let jokeIndexCookie = cookieValue = document.cookie.split("; ")
+                              .find((row) => row.startsWith("jokeIndex="))?.split("=")[1];
+
+            if (!jokeIndexCookie) {
+               jokeContent.innerHTML = `<span data-joke-index=${0} data-joke-id=${jokeList[0].id}> ${jokeList[0].content} </span>`;
+               return
+            }
+            if (jokeIndexCookie >= jokeList.length - 1) {
+               jokeContent.innerHTML = `<span > That's all the jokes for today! Come back another day! </span>`;
+               return;
+            }
+            
+            jokeIndexCookie = parseInt(jokeIndexCookie);
+            jokeContent.innerHTML = `<span data-joke-index=${jokeIndexCookie + 1} data-joke-id=${jokeList[jokeIndexCookie + 1].id}> ${jokeList[jokeIndexCookie + 1].content} </span>`;
+         }
+         
+         async function voting(value) {
+            let jokeContent = document.getElementsByClassName('joke-content')[0];
+            let jokeIndex = jokeContent.getElementsByTagName('span')[0].getAttribute('data-joke-index');
+            let jokeID = jokeContent.getElementsByTagName('span')[0].getAttribute('data-joke-id');
+            if (!jokeIndex) {
+               return;
+            }
+
+            document.cookie = `jokeIndex=${jokeIndex}`;
+            renderJoke(parseInt(jokeIndex) + 1);
+
+            let rawResponse = await fetch(`${baseURL}jokevote`, {
+               method: 'POST',
+               headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({
+                  vote: parseInt(value),
+                  jokeId: parseInt(jokeID),
+               })
+            });
          }
 
-         let jokeContent = document.querySelector('.joke-content');
-         jokeContent.innerHTML = `<span data-joke-index=${index} data-joke-id=${jokeList[index].id}> ${jokeList[index].content} </span>`;
-      }
-      
-      renderInitList();
-   </script>
+         function renderJoke(index) {
+            if (index >= jokeList.length) {
+               let jokeContent = document.querySelector('.joke-content');
+               jokeContent.innerHTML = `<span > That's all the jokes for today! Come back another day! </span>`;
+               return;
+            }
+
+            let jokeContent = document.querySelector('.joke-content');
+            jokeContent.innerHTML = `<span data-joke-index=${index} data-joke-id=${jokeList[index].id}> ${jokeList[index].content} </span>`;
+         }
+         
+         renderInitList();
+      </script>
+   </body>
 </html>
